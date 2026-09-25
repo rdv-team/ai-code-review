@@ -1,0 +1,131 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f4fbfd;
+  color: #013f53;
+  --brand-cyan: #01b1d9;
+  --brand-cyan-bright: #00bee4;
+  --brand-blue: #174f77;
+  --brand-navy: #013f53;
+  --brand-yellow: #ffd540;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+
+.instruction-page {
+  width: min(920px, calc(100% - 32px));
+  margin: 48px auto;
+}
+
+.page-header {
+  padding: 28px 32px;
+  border-radius: 16px 16px 0 0;
+  background: var(--brand-navy);
+  color: #fff;
+}
+
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .75; }
+h1 { margin: 8px 0 6px; font-size: clamp(26px, 4vw, 38px); }
+h1 span { color: var(--brand-cyan-bright); }
+.page-header p { max-width: 760px; margin: 0; color: #d7f5fb; line-height: 1.5; }
+
+.message {
+  padding: 14px 18px;
+  border: 1px solid #b8d9e1;
+  border-top: 0;
+  background: #fff;
+}
+.message.loading { color: var(--brand-blue); }
+.message.validation, .message.error { color: var(--brand-navy); background: #fff9dc; border-color: var(--brand-yellow); }
+.message.success { color: var(--brand-navy); background: #e9faff; border-color: var(--brand-cyan); }
+
+.instruction-form {
+  padding: 28px 32px 32px;
+  border: 1px solid #b8d9e1;
+  border-top: 0;
+  border-radius: 0 0 16px 16px;
+  background: #fff;
+  box-shadow: 0 16px 40px rgba(1, 63, 83, .1);
+}
+.instruction-form[hidden] { display: none; }
+
+.field { display: block; margin-bottom: 8px; font-size: 15px; font-weight: 700; }
+textarea {
+  display: block;
+  width: 100%;
+  min-height: min(48vh, 420px);
+  resize: vertical;
+  border: 1px solid #9fcbd5;
+  border-radius: 10px;
+  padding: 14px 16px;
+  background: #fff;
+  color: inherit;
+  font: 16px/1.55 "Cascadia Code", Consolas, monospace;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+textarea:focus { outline: 3px solid rgba(0, 190, 228, .25); border-color: var(--brand-cyan); }
+
+.field-meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: start;
+  margin-top: 8px;
+  color: var(--brand-blue);
+}
+.field-meta small { line-height: 1.4; }
+.field-meta output { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+.field-meta output.is-over-limit { color: #9b2419; }
+.draft-validation {
+  grid-column: 1 / -1;
+  color: #9b2419;
+  font-weight: 700;
+}
+.draft-validation[hidden] { display: none; }
+textarea[aria-invalid="true"] { border-color: #b13a2c; }
+
+.conflict-panel {
+  margin: 0 0 22px;
+  padding: 16px;
+  border: 2px solid var(--brand-yellow);
+  border-radius: 10px;
+  background: #fff9dc;
+}
+.conflict-panel[hidden] { display: none; }
+.conflict-panel h2 { margin: 0; font-size: 17px; }
+.conflict-panel p { margin: 8px 0 14px; line-height: 1.45; }
+.conflict-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+button.secondary { background: #fff; color: var(--brand-blue); }
+button.secondary:hover:not(:disabled) { background: #e9faff; border-color: var(--brand-cyan); }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.save-status { min-height: 1.3em; font-size: 14px; font-weight: 700; }
+.save-status.loading, .save-status.success { color: var(--brand-blue); }
+.save-status.validation, .save-status.error { color: var(--brand-navy); }
+button {
+  min-width: 124px;
+  border: 1px solid var(--brand-blue);
+  border-radius: 8px;
+  padding: 10px 16px;
+  background: var(--brand-blue);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+button:hover:not(:disabled) { background: var(--brand-navy); border-color: var(--brand-navy); }
+button.danger { background: #fff; color: var(--brand-navy); }
+button.danger:hover:not(:disabled) { background: #fff1ef; border-color: #b13a2c; }
+button:focus-visible { outline: 3px solid rgba(0, 190, 228, .3); outline-offset: 2px; }
+button:disabled { cursor: not-allowed; opacity: .6; }
+
+@media (max-width: 620px) {
+  .instruction-page { width: 100%; margin: 0; }
+  .page-header, .instruction-form { border-radius: 0; padding-left: 20px; padding-right: 20px; }
+  .field-meta { grid-template-columns: 1fr; gap: 8px; }
+  textarea { min-height: 55vh; }
+  .actions button { flex: 1 1 140px; }
+  .save-status { flex-basis: 100%; }
+}

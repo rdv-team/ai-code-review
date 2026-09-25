@@ -1,0 +1,22 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "routerai/deepseek/deepseek-v4.1-flash",
+  "skills": {
+    "paths": ["C:/Users/Ivanov/.codex/skills"]
+  },
+  "provider": {
+    "routerai": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "RouterAI",
+      "options": {
+        "baseURL": "https://routerai.ru/api/v1",
+        "apiKey": "{env:ROUTERAI_API_KEY}"
+      },
+      "models": {
+        "deepseek/deepseek-v4.1-flash": {
+          "name": "DeepSeek V4.1 Flash"
+        }
+      }
+    }
+  }
+}

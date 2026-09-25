@@ -1,0 +1,50 @@
+# Настройки генерации staged review prompt artifacts:
+# `_review_info/review_prompt_stage1.md`, `_review_info/review_prompt_stage2.md`,
+# `_review_info/review_bsl.md`.
+# Packaged defaults можно переопределить через `<target_repo>/.review-tasks.toml`
+# или через явный `--config PATH`; явный config имеет больший приоритет.
+[review_prompt]
+
+# Модель для подсчета токенов prompt через tiktoken.
+# Влияет на выбранный tokenizer и на точность расчета token budget.
+# Если модель неизвестна tiktoken, используется fallback-кодировка `o200k_base`.
+model = "gpt-5.5"
+
+# Общий лимит контекстного окна модели в токенах: входной prompt + будущий ответ модели.
+# Это не лимит размера ответа. Для ответа отдельно резервируются output_*_token_buffer.
+# Входной budget считается так:
+# soft_input_budget = max_model_tokens - output_soft_token_buffer
+# hard_input_budget = max_model_tokens - output_hard_token_buffer
+# Чем больше max_model_tokens, тем больше BSL-изменений может попасть в один review prompt.
+max_model_tokens = 100000
+
+# Резерв токенов под ответ модели при обычной сборке prompt.
+# Чем больше значение, тем меньше BSL-контекста попадает во вход.
+output_soft_token_buffer = 3000
+
+# Минимальный резерв токенов под ответ модели при усечённом prompt.
+# Hard budget используется, когда soft budget уже не вмещает все изменения.
+output_hard_token_buffer = 1500
+
+# Фиксированное число строк контекста выше первой измененной TARGET-строки.
+# Используется, если dynamic_context_enabled = false или объявление процедуры/функции не найдено.
+# При построении BSL-блоков значение ограничивается максимумом 10.
+patch_extra_lines_before = 10
+
+# Фиксированное число строк контекста ниже последней измененной TARGET-строки.
+# Dynamic context не расширяет нижнюю границу; при построении BSL-блоков значение ограничивается максимумом 10.
+patch_extra_lines_after = 10
+
+# Включает динамический верхний контекст для BSL-блоков.
+# Если рядом выше изменения найдено объявление процедуры/функции и хватает budget,
+# блок `-- new bsl --` расширяется вверх до этого объявления.
+dynamic_context_enabled = true
+
+# Сколько строк вверх от первой измененной TARGET-строки искать объявление процедуры/функции.
+# Работает только при dynamic_context_enabled = true; иначе верхний контекст задает patch_extra_lines_before.
+dynamic_context_max_lines_up = 15
+
+# Порог фильтрации массовых серий добавленных/удаленных BSL-комментариев `//`.
+# Серии длиной >= порога не попадают в prompt; 0 отключает фильтр.
+# TARGET-номера оставшихся строк не перенумеровываются, поэтому в prompt возможны пропуски номеров.
+ignore_consecutive_comment_lines_threshold = 5

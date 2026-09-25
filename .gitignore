@@ -1,0 +1,25 @@
+# setuptools / pip editable install
+*.egg-info/
+dist/
+build/
+
+# Python
+__pycache__/
+*.py[cod]
+.Python
+.venv/
+venv/
+.env/
+
+# Test / quality tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+tests/fixtures/
+
+# Local workspace scratch files
+.tmp/
+.obsidian/
+openspec/.obsidian/

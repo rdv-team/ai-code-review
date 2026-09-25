@@ -1,0 +1,16 @@
+[Unit]
+Description=review-tasks JIRA local review loopback service
+After=network.target
+
+[Service]
+Type=simple
+User=review-tasks
+WorkingDirectory=/opt/review-tasks
+ExecStart=/usr/local/bin/review-tasks local-service
+Restart=on-failure
+RestartSec=5
+# Operational settings are read from ~/.review-tasks/local-service/service.json
+# Environment=REVIEW_TASKS_SERVICE_TOKEN=...
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>RDV Local Review</title>
+    <style>
+      html, body { width: 380px; min-width: 380px; max-width: 380px; }
+      body { background: #f4fbfd; color: #013f53; margin: 0; }
+    </style>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main class="popup">
+      <header class="topbar">
+        <div>
+          <div id="issueKey" class="issue-key">JIRA</div>
+          <div id="issueTitle" class="issue-title"></div>
+        </div>
+        <button id="refreshButton" class="icon-button" title="Обновить" aria-label="Обновить">↻</button>
+      </header>
+
+      <section class="status-band" id="statusBand">
+        <div class="status-main">
+          <div id="displayStatus" class="display-status">Новая</div>
+          <button id="openAgentLog" type="button" class="agent-log-button" title="Открыть лог агента" aria-label="Открыть лог агента" hidden>↗</button>
+        </div>
+        <div id="detailStatus" class="detail-status">Ожидание</div>
+        <div id="duration" class="duration"></div>
+      </section>
+
+      <section class="state-details" id="stateDetails">
+        <section class="diagnostics" id="diagnostics" hidden></section>
+        <section class="warnings" id="warningsSection" hidden>
+          <div class="section-title">Предупреждения</div>
+          <ul id="warningsList"></ul>
+        </section>
+        <section class="handoff" id="handoffSection" hidden>
+          <div class="section-title">Ручной запуск</div>
+          <div id="handoffTaskDir" class="handoff-path"></div>
+          <pre id="handoffCommand" class="handoff-command"></pre>
+        </section>
+      </section>
+
+      <section class="source-selector" id="sourceSelector">
+        <div class="source-mode" role="group" aria-label="Источник ревью">
+          <button id="sourceTask" type="button" class="source-mode-button active">TASK</button>
+          <button id="sourceMr" type="button" class="source-mode-button">MR</button>
+        </div>
+        <div id="mrList" class="mr-list" hidden></div>
+      </section>
+
+      <section class="user-instruction-control" id="userInstructionControl" hidden>
+        <div class="user-instruction-copy">
+          <div class="user-instruction-title">Инструкция агенту</div>
+          <div id="userInstructionState" class="user-instruction-state" role="status" aria-live="polite">
+            Проверка…
+          </div>
+          <div id="userInstructionError" class="user-instruction-error" role="alert" hidden></div>
+        </div>
+        <button id="openInstructionEditor" type="button" class="secondary">Редактировать</button>
+      </section>
+
+      <section class="report-action">
+        <button id="openReport" class="secondary" hidden>Открыть отчет</button>
+        <button id="openReasoning" class="secondary" hidden>Открыть рассуждения</button>
+      </section>
+
+      <section class="review-actions">
+        <div id="submitSlot" class="confirm-slot">
+          <button id="submitReview" class="primary confirm-trigger">Отправить на ревью</button>
+          <div id="submitConfirmActions" class="confirm-actions" inert aria-hidden="true">
+            <button id="submitConfirmSend" class="primary confirm-send">Отправить</button>
+            <button id="submitConfirmCancel" class="danger">Отменить</button>
+          </div>
+        </div>
+        <div id="prepareSlot" class="confirm-slot" hidden>
+          <button id="prepareReview" class="secondary confirm-trigger">Подготовить без запуска</button>
+          <div id="prepareConfirmActions" class="confirm-actions" inert aria-hidden="true">
+            <button id="prepareConfirmSend" class="primary confirm-send">Отправить</button>
+            <button id="prepareConfirmCancel" class="danger">Отменить</button>
+          </div>
+        </div>
+        <button id="cancelReview" class="danger" hidden>Отмена</button>
+      </section>
+
+      <section class="summary" id="summarySection" hidden>
+        <div class="section-title">Сводка</div>
+        <div id="summaryText" class="summary-text"></div>
+        <div class="summary-grid">
+          <span>Критично</span><b id="criticalCount">0</b>
+          <span>Важно</span><b id="majorCount">0</b>
+          <span>Желательно</span><b id="minorCount">0</b>
+          <span>Токены</span><b id="tokenUsage">—</b>
+        </div>
+      </section>
+
+      <section class="settings-panel" id="settingsPanel">
+        <div class="settings-panel-heading">Настройки</div>
+        <div class="settings-tabs" role="tablist" aria-label="Настройки">
+          <button id="settingsTabService" type="button" role="tab" class="settings-tab active" aria-selected="true" aria-controls="servicePanel">Локальный сервис</button>
+          <button id="settingsTabConfig" type="button" role="tab" class="settings-tab" aria-selected="false" aria-controls="configPanel">Конфигурация проекта</button>
+        </div>
+        <div id="servicePanel" role="tabpanel" class="settings-tab-panel service-settings" aria-labelledby="settingsTabService">
+          <div class="service-grid">
+            <label class="field compact">
+              <span>Port</span>
+              <input id="servicePort" type="number" min="1" max="65535" value="8765">
+            </label>
+            <label class="field">
+              <span>Token</span>
+              <input id="serviceToken" type="password" autocomplete="off">
+            </label>
+          </div>
+          <button id="saveServiceSettings" class="secondary">Сохранить сервис</button>
+        </div>
+        <div id="configPanel" role="tabpanel" class="settings-tab-panel config" aria-labelledby="settingsTabConfig" hidden>
+          <section class="config" id="configSection">
+            <div id="configReadiness" class="config-readiness">Конфигурация не готова</div>
+            <div id="selectedIde" class="config-detail">IDE: —</div>
+            <div id="missingConfigFields" class="config-detail"></div>
+            <button id="openProjectConfig" class="secondary">Настроить проект…</button>
+          </section>
+        </div>
+      </section>
+    </main>
+    <script src="issue.js"></script>
+    <script src="user-instruction-store.js"></script>
+    <script src="status.js"></script>
+    <script src="api.js"></script>
+    <script src="prefix-config.js"></script>
+    <script src="ui-feedback.js"></script>
+    <script src="artifact-page-utils.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

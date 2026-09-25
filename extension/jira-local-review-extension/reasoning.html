@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Рассуждения ревью</title>
+    <link rel="stylesheet" href="reasoning.css">
+    <link rel="stylesheet" href="vendor/highlight.github.min.css">
+  </head>
+  <body>
+    <main class="reasoning-page">
+      <header class="reasoning-header">
+        <div>
+          <h1 id="title">Рассуждения ревью</h1>
+          <div id="reasoningPath" class="reasoning-path"></div>
+        </div>
+        <div class="reasoning-actions">
+          <button id="copyPath" class="secondary">Скопировать путь</button>
+          <button id="copyYaml" class="secondary">Скопировать YAML</button>
+        </div>
+      </header>
+      <section id="error" class="error" hidden></section>
+      <pre id="content" class="yaml-body"><code id="contentCode" class="language-yaml"></code></pre>
+    </main>
+    <script src="api.js"></script>
+    <script src="ui-feedback.js"></script>
+    <script src="artifact-page-utils.js"></script>
+    <script src="vendor/highlight.min.js"></script>
+    <script src="reasoning.js"></script>
+  </body>
+</html>

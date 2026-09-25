@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "servers": {
+    "onec-syntax-checker-mcp-remote": {
+      "url": "https://{env:RDV_MCP_1C_URL}/bsl-syntax-checker",
+      "connection_id": "1c_bsl_service_001",
+      "headers": {
+        "Authorization": "Bearer {env:RDV_MCP_1C_TOKEN}"
+      },
+      "expectedTools": [
+        "syntaxcheck"
+      ]
+    },
+    "onec-ssl-mcp-remote": {
+      "url": "https://{env:RDV_MCP_1C_URL}/ssl",
+      "connection_id": "1c_ssl_service_001",
+      "headers": {
+        "Authorization": "Bearer {env:RDV_MCP_1C_TOKEN}"
+      },
+      "expectedTools": [
+        "ssl_search"
+      ]
+    },
+    "onec-docs-mcp-remote": {
+      "url": "https://{env:RDV_MCP_1C_URL}/docs-8-3-27",
+      "connection_id": "1c_docs_service_001",
+      "headers": {
+        "Authorization": "Bearer {env:RDV_MCP_1C_TOKEN}"
+      },
+      "expectedTools": [
+        "docinfo",
+        "docsearch"
+      ]
+    },
+    "onec-v8std-mcp-remote": {
+      "url": "https://{env:RDV_MCP_1C_URL}/v8std",
+      "connection_id": "1c_v8std_service_001",
+      "headers": {
+        "Authorization": "Bearer {env:RDV_MCP_1C_TOKEN}"
+      },
+      "expectedTools": [
+        "v8std_search",
+        "v8std_get_page",
+        "v8std_get_related",
+        "v8std_explain_snippet",
+        "v8std_explain_diagnostics"
+      ]
+    }
+  }
+}

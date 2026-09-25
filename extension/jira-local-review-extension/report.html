@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>Отчет ревью</title>
+    <link rel="stylesheet" href="report.css">
+  </head>
+  <body>
+    <main class="report-page">
+      <header class="report-header">
+        <div>
+          <h1 id="title">Отчет ревью</h1>
+          <div id="reportPath" class="report-path"></div>
+        </div>
+        <div class="report-actions">
+          <button id="copyPath" class="secondary">Скопировать путь</button>
+          <button id="copyMarkdown" class="secondary">Скопировать Markdown</button>
+        </div>
+      </header>
+      <section id="error" class="error" hidden></section>
+      <article id="content" class="markdown-body"></article>
+    </main>
+    <script src="api.js"></script>
+    <script src="ui-feedback.js"></script>
+    <script src="artifact-page-utils.js"></script>
+    <script src="vendor/marked.min.js"></script>
+    <script src="report.js"></script>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Инструкция агенту · RDV Local Review</title>
+    <link rel="stylesheet" href="instruction.css">
+  </head>
+  <body>
+    <main class="instruction-page">
+      <header class="page-header">
+        <div class="eyebrow">RDV Local Review</div>
+        <h1>Инструкция агенту для <span id="issueKey">—</span><span id="unsavedMarker" hidden> *</span></h1>
+        <p>Сохранённая инструкция будет использоваться при каждом следующем ревью этой задачи, пока вы не измените или не удалите её.</p>
+      </header>
+
+      <section id="pageMessage" class="message loading" role="status" aria-live="polite">
+        Загрузка инструкции…
+      </section>
+
+      <form id="instructionForm" class="instruction-form" hidden>
+        <label class="field" for="instructionText">Текст инструкции</label>
+        <textarea
+          id="instructionText"
+          rows="14"
+          wrap="soft"
+          autofocus
+          aria-describedby="instructionHint characterCount draftValidation"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="true"
+        ></textarea>
+        <div class="field-meta">
+          <small id="instructionHint">Введите Markdown: доступны заголовки, списки, пустые строки и блоки кода.</small>
+          <output id="characterCount" for="instructionText" aria-live="polite">0 / 2000</output>
+          <small id="draftValidation" class="draft-validation" role="alert" aria-live="polite" hidden>Лимит превышен. Сократите инструкцию до 2000 символов.</small>
+        </div>
+
+        <section id="conflictPanel" class="conflict-panel" role="alert" aria-labelledby="conflictTitle" hidden>
+          <h2 id="conflictTitle">Инструкция изменилась в другой вкладке</h2>
+          <p>Локальный текст не потерян. Загрузите актуальное значение либо явно сохраните свой текст поверх него.</p>
+          <div class="conflict-actions">
+            <button id="reloadCurrentInstruction" type="button" class="secondary">Загрузить актуальную</button>
+            <button id="overwriteInstruction" type="button">Сохранить свой текст поверх</button>
+          </div>
+        </section>
+
+        <div class="actions">
+          <button id="saveInstruction" type="submit" disabled>Сохранить</button>
+          <button id="deleteInstruction" type="button" class="danger">Удалить</button>
+          <span id="saveStatus" class="save-status" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </main>
+    <script src="issue.js"></script>
+    <script src="user-instruction-store.js"></script>
+    <script src="instruction.js"></script>
+  </body>
+</html>

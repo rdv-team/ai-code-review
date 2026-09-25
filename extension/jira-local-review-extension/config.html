@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Конфигурация проекта · RDV Local Review</title>
+    <link rel="stylesheet" href="config.css">
+  </head>
+  <body>
+    <main class="config-page">
+      <header class="page-header">
+        <div>
+          <div class="eyebrow">RDV Local Review</div>
+          <h1>Конфигурация проекта <span id="projectKey">—</span><span id="unsavedMarker" hidden> *</span></h1>
+        </div>
+      </header>
+
+      <section id="pageMessage" class="message loading" role="status" aria-live="polite">
+        Загрузка конфигурации…
+      </section>
+
+      <form id="configForm" class="config-form" hidden>
+        <label class="field field-wide">
+          <span>Git-репозитории проекта (repoPath)</span>
+          <textarea id="repoPath" rows="6" placeholder="Например: C:\projects\my-project"></textarea>
+          <small>Укажите путь к Git-репозиторию проекта, то есть к папке с кодом и историей изменений Git. Обычная папка с файлами не подойдёт. Если репозиториев несколько, добавьте каждый путь с новой строки. Можно указать общую папку, внутри которой они находятся: сервис найдёт репозитории сам.</small>
+        </label>
+
+        <label class="field field-wide">
+          <span>Папка для результатов ревью (reviewsRoot)</span>
+          <input id="reviewsRoot" autocomplete="off">
+          <small>Сервис создаёт в этом каталоге отдельную папку для каждой задачи и сохраняет в ней файлы ревью. Укажите полный путь, например C:\reviews. Если каталога по указанному пути нет, сервис создаст его.</small>
+        </label>
+
+        <div class="field-grid">
+          <label class="field">
+            <span>branch</span>
+            <input id="branch" value="origin/master" autocomplete="off">
+            <small>Ветка, с которой будут сравниваться изменения. Сначала используйте origin/HEAD: эта ссылка указывает на основную ветку удалённого репозитория. Если origin/HEAD не настроен, укажите ветку явно, например origin/master или origin/main.</small>
+          </label>
+          <label class="field">
+            <span>remote</span>
+            <input id="remote" value="origin" autocomplete="off">
+            <small>Поле remote содержит короткое имя удалённого Git-репозитория, например GitLab-проекта. Сервис использует его для загрузки веток и изменений. По умолчанию используйте origin.</small>
+          </label>
+          <label class="field">
+            <span>AI-агент для ревью (IDE)</span>
+            <select id="ide">
+              <option value="codex">Codex</option>
+              <option value="cursor">Cursor</option>
+              <option value="opencode">OpenCode</option>
+            </select>
+            <small>AI-агент, который будет выполнять ревью. Выберите установленный и настроенный вариант.</small>
+          </label>
+          <label class="field">
+            <span>Максимальное время ревью, секунд (timeout)</span>
+            <input id="timeoutSec" type="number" min="60" step="60" value="1800">
+            <small>Максимальное время ожидания завершения ревью. Для больших задач увеличьте значение, например до 3600 секунд.</small>
+          </label>
+        </div>
+
+        <label class="mcp-toggle">
+          <input id="useMcp" type="checkbox" role="switch" checked>
+          <span>Использовать MCP</span>
+        </label>
+
+        <div class="actions">
+          <button id="saveConfig" type="submit">Сохранить конфигурацию</button>
+          <button id="retryLoad" type="button" class="secondary" hidden>Повторить загрузку</button>
+          <span id="saveStatus" class="save-status" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </main>
+    <script src="api.js"></script>
+    <script src="prefix-config.js"></script>
+    <script src="config.js"></script>
+  </body>
+</html>

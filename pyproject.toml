@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "review-tasks"
+version = "1.0.0"
+description = "Подготовка самодостаточного каталога для code review задач 1С из git-коммитов."
+requires-python = ">=3.11"
+dependencies = [
+    "tiktoken",
+    "PyYAML",
+    "pydantic>=2.6",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+review_tasks = ["runtime/**/*", "configuration.toml"]
+
+[project.scripts]
+review-tasks = "review_tasks.cli:cli"
