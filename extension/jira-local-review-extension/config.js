@@ -49,7 +49,7 @@
   function setDirty(dirty) {
     $("unsavedMarker").hidden = !dirty;
     if (state.projectKey) {
-      document.title = `${state.projectKey}${dirty ? " *" : ""} · Конфигурация проекта`;
+      document.title = `${state.projectKey}${dirty ? " *" : ""} · Конфигурация проекта · RDV AIR`;
     }
   }
 

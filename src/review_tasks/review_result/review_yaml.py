@@ -47,7 +47,7 @@ SEVERITY_TITLES = {
     "desirable": "Желательно",
 }
 
-DEFAULT_REPORT_TEMPLATE = """# Отчёт ревью - {{TASK}}
+DEFAULT_REPORT_TEMPLATE = """# RDV AIR — Отчёт ревью — {{TASK}}
 
 ## Сводка
 

@@ -82,7 +82,7 @@
     $("draftValidation").hidden = !validation.overLimit;
     $("instructionText").setAttribute("aria-invalid", validation.overLimit ? "true" : "false");
     $("unsavedMarker").hidden = !dirty;
-    document.title = `${state.issueKey || "Jira"}${dirty ? " *" : ""} · Инструкция агенту`;
+    document.title = `${state.issueKey || "Jira"}${dirty ? " *" : ""} · Инструкция агенту · RDV AIR`;
     renderActionState();
     return dirty;
   }

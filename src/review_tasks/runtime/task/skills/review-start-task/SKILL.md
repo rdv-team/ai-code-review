@@ -1,6 +1,6 @@
 ---
 name: review-start-task
-description: Автономное поэтапное ревью одной подготовленной задачи.
+description: "Автономное поэтапное ревью одной подготовленной задачи по просьбе «Проведи ревью задачи»."
 license: MIT
 compatibility: Требуется Python 3.
 metadata:

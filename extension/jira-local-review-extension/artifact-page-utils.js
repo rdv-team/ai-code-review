@@ -60,7 +60,7 @@
   function applyArtifactPageTitle(titleElement, kind, label) {
     const text = kind === "reasoning" ? buildReasoningPageTitle(label) : buildReportPageTitle(label);
     if (typeof document !== "undefined") {
-      document.title = text;
+      document.title = `${text} · RDV AIR`;
     }
     if (titleElement) {
       titleElement.textContent = text;

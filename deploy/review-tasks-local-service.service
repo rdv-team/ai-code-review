@@ -1,5 +1,5 @@
 [Unit]
-Description=review-tasks JIRA local review loopback service
+Description=RDV AIR — AI Review JIRA service
 After=network.target
 
 [Service]

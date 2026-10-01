@@ -1,4 +1,4 @@
-# Расширенное использование `review-tasks`
+# Расширенное использование RDV AIR — AI Review
 
 Здесь собраны ручная установка, прямые CLI-команды, пакетная подготовка задач, GitLab MR, MCP, OpenCode и запуск из Jira.
 
@@ -33,7 +33,7 @@ TASK-123/
 
 Сначала:
 
-> Установи и настрой `review-tasks`.
+> Установи и настрой RDV AIR.
 
 После завершённого setup:
 
@@ -162,7 +162,9 @@ winget --version
 
 Источник: [установка WinGet у Microsoft](https://learn.microsoft.com/en-us/windows/package-manager/winget/). Не выполняйте bootstrap, если `winget` уже работает. Если нужны права администратора, пользователь подтверждает штатный UAC; после установки обновите терминал/IDE и продолжите с проверки версий Git и Python.
 
-### Установить review-tasks
+### Установить RDV AIR
+
+RDV AIR устанавливается как Python-пакет `review-tasks` и запускается командой `review-tasks`.
 
 Обычная установка из ZIP не зависит от сохранности распакованной папки. Сама папка понадобится, если вы используете project skills `review-setup`, `review-init` или Chrome extension.
 
@@ -534,7 +536,7 @@ Invoke-RestMethod http://127.0.0.1:8765/health
 1. откройте `chrome://extensions`;
 2. включите **Режим разработчика**;
 3. нажмите **Загрузить распакованное расширение**;
-4. выберите `extension/jira-local-review-extension` из корня `review-tasks`;
+4. выберите `extension/jira-local-review-extension` из корня checkout RDV AIR;
 5. на вкладке **Локальный сервис** задайте port из `service.json` и локальный extension token.
 
 Ключи RouterAI, MCP и GitLab в extension вводить нельзя. После изменения файлов расширения нажимайте **Обновить** у распакованного расширения.
